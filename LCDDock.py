@@ -5,13 +5,13 @@ GPIO.setmode(GPIO.BCM)
 
 heure_date = [10, 34, 18, 18, 10, 2022]  # seconde minute heure jour mois année
 mod = [60, 60, 24, 31, 12, 3000]  # limite d'incrementation
-GPIO.setup(12, GPIO.OUT)
-GPIO.setup(11, GPIO.OUT)
-GPIO.setup(5, GPIO.OUT)
-GPIO.setup(4, GPIO.OUT)
-GPIO.setup(3, GPIO.OUT)
-GPIO.setup(2, GPIO.OUT)
-lcd = [12, 11, 5, 4, 3, 2]  # Pins pour l'écran LCD
+GPIO.setup(16, GPIO.OUT)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(19, GPIO.OUT)
+GPIO.setup(21, GPIO.OUT)
+GPIO.setup(23, GPIO.OUT)
+GPIO.setup(24, GPIO.OUT)
+lcd = [16, 18, 19, 21, 23, 24]  # Pins pour l'écran LCD
 
 def setup():
     for pin in lcd:
