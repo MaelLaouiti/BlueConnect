@@ -72,7 +72,32 @@ if __name__ == "__main__":
         loop()
     except KeyboardInterrupt:
         GPIO.cleanup()
-"""#Include libraries
+"""
+from RPLCD import CharLCD
+import RPi.GPIO as GPIO  # Assurez-vous d'avoir la bibliothèque RPi.GPIO installée
+
+# Configuration des broches
+lcd = CharLCD(cols=16, rows=2, pin_rs=37, pin_e=35, pins_data=[33, 31, 29, 23], numbering_mode=GPIO.BOARD)
+
+# Effacer l'écran
+lcd.clear()
+
+# Afficher du texte
+lcd.write_string("Hello, World!")
+
+# Déplacer le curseur à la deuxième ligne
+lcd.cursor_pos = (1, 0)
+
+# Afficher un autre texte
+lcd.write_string("LCD avec Python")
+
+# Fermer le GPIO
+GPIO.cleanup()
+""" 
+
+
+"""
+#Include libraries
 import RPi.GPIO as GPIO 
 import time
 from RPLCD.gpio import CharLCD
@@ -92,4 +117,5 @@ lcd.write_string(“Count: “+ str(number))
 time.sleep(1) 
 
 lcd.close() 
-GPIO.cleanup()"""
+GPIO.cleanup()
+"""
