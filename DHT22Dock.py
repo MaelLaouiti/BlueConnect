@@ -13,7 +13,7 @@ from machine import Pin
 from time import sleep
 import dht
 
-capteur = dht.DHT22(Pin(23))
+capteur = dht.DHT22(Pin(7))
 
 while True:
   try:
