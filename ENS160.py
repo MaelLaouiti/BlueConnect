@@ -33,7 +33,7 @@ ECO2_REGISTER = 0x37
 #0x7F = 96
 
 # Initialize I2C bus
-bus = smbus.SMBus(1) # Assuming Raspberry Pi 3 uses I2C bus 1
+bus = smbus.SMBus(4) # Assuming Raspberry Pi 3 uses I2C bus 1
 
 # Function to read sensor data
 def read_sensor_data(register):
