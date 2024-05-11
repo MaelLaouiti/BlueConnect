@@ -22,7 +22,7 @@ BH1750_ADDR = 0x23
 CONTINUOUS_HIGH_RES_MODE = 0x10
 
 # Create an instance of the smbus module to communicate with I2C
-bus = smbus.SMBus(1)
+bus = smbus.SMBus(3)
 
 #Connection au Pi3 via le port MQTT par defaut and un keepalive de 60s (temps d'abandon)
 client.connect(SERVEUR, 1883, 60)
