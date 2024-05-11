@@ -28,7 +28,7 @@ sensor = Adafruit_DHT.DHT22
 pin = 4 # pin 7 du Raspberry PI donc GPIO4
 # Faire une requête GET pour récupérer le contenu de la page
 response = requests.get(url)
-
+temperatureCible = 20
 # Vérifier si la requête s'est bien passée
 while True:
     if response.status_code == 200:
@@ -64,24 +64,24 @@ while True:
     temperatureSite = float(temperature_element.get_text()[:2])
     humiditySite = float(humidite_element.get_text()[:2])
     if humidity is not None and temperature is not None:
-         if temperature < 10 :
+         if temperature < temperatureCible :
             print('Allumer le chauffage et/ou fermer les fenêtres')
             sensor_data['information'] = 'Allumer le chauffage et/ou fermer les fenêtres'
-         if temperature > 30 :
+         if temperature > temperatureCible :
              if temperatureSite > temperature :
                  print('Eteindre le chauffage et/ou fermer les fenêtres')
                  sensor_data['information'] = 'Eteindre le chauffage et/ou fermer les fenêtres'
              if temperatureSite < temperature :
                  print('Eteindre le chauffage et/ou ouvrir les fenêtres')
                  sensor_data['information'] = 'Eteindre le chauffage et/ou ouvrir les fenêtres'
-         if (humidity > 60 and temperature > 10 and temperature < 30):
+         if (humidity > 60 and temperature > temperatureCible and temperature < temperatureCible):
              if humiditySite > humidity :
                  print('Fermer les fenêtres')
                  sensor_data['information'] = 'Fermer les fenêtres'
              if humiditySite < humidity :
                  print('Ouvrir les fenêtres')
                  sensor_data['information'] = 'Ouvrir les fenêtres'
-         if (humidity < 40 and temperature > 10 and temperature < 30):
+         if (humidity < 40 and temperature > temperatureCible and temperature < temperatureCible):
              if humiditySite > humidity :
                 print('Ouvrir les fenêtres')
                 sensor_data['information'] = 'Ouvrir les fenêtres'
