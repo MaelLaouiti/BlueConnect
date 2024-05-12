@@ -15,7 +15,7 @@ def setup():
 
 def loop():
     current_time = datetime.datetime.now()
-    setText("   {}/{}/{}     Il est {}:{}  ".format(current_time.year, current_time.month, current_time.day+1, current_time.hour - 8,current_time.minute))
+    setText("   {}/{}/{}     Il est {}:{}  ".format(current_time.year, current_time.month, current_time.day, current_time.hour,current_time.minute))
     time.sleep(10)
     setRGB(30,30,30)
 
