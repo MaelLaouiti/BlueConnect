@@ -57,7 +57,7 @@ while True:
     print("eCO2 (ppm):", eco2)
     print()
 
-    if eco2 > 600 :
+    if eco2 > 800 :
         print('Ouvrir les fenêtres')
         sensor_data['information'] = 'Ouvrir les fenêtres'
 
