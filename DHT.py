@@ -94,7 +94,7 @@ while True:
     #Envois des donnees capteurs au Deck
     client.publish('hum_temp',json.dumps(sensor_data),1)  
 
-    next_reading =+ INTERVALE
+    next_reading += INTERVALE
     sleep_time = next_reading-time.time()
     if sleep_time > 0:
         time.sleep(sleep_time)

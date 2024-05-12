@@ -1,5 +1,53 @@
 from tkinter import *
 import time
+import paho.mqtt.client as mqtt
+import json
+from paho.mqtt.client import MQTTv311
+import threading
+
+#Defintion des variables globales
+temp_transmis = 0
+hum_transmis = 0
+lum_transmis = 0
+co2_transmis = 0
+#configuration du serveur broker MQTT
+SERVEUR = 'localhost'
+
+#Configuration des topics de sub
+TOPICS = ['hum_temp', 'lum', 'co2']
+
+#Fonction de depacketage des fichiers json reçu en fonction du topic
+def on_message(client,userdata,message):
+    global temp_transmis, hum_transmis, lum_transmis, co2_transmis
+    topic = message.topic
+    payload = json.loads(message.payload.decode())
+    #Affichage des json dump reçu pour debuggage manuel
+    print(f"Received message on topic '{topic}': {payload}")
+    if topic == 'hum_temp':
+        temp_transmis = payload.get('temperature', 0)
+        hum_transmis = payload.get('humidite', 0)
+        
+    elif topic == 'lum':
+        lum_transmis = payload.get('luminosite', 0)
+        
+    elif topic == 'co2':
+        co2_transmis = payload.get('co2', 0)
+        
+
+#Creation d'un client MQTT
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, protocol=mqtt.MQTTv311)
+
+#Connexion au brokeer MQTT
+client.connect(SERVEUR, 1883, 60)
+
+#Sub aux topics MQTT
+for topic in TOPICS:
+    client.subscribe(topic)
+    
+#Demarrage de la loop MQTT
+mqtt_thread = threading.Thread(target=client.loop_forever)
+mqtt_thread.daemon = False  #Empêche de terminer le thread lorsque le programme principal se termine
+mqtt_thread.start()
 
 def interface_change():
     global current_frame
@@ -11,12 +59,12 @@ def interface_change():
         current_frame = fenetre_principal_frame
     current_frame.grid(row=0, column=0, padx=10, pady=10)
     
-# récup des valeurs des capts
+#récup des valeurs des capts
 def get_sensor_data():
-    co2_valeur = 50  
-    temp_valeur = 30  
-    hum_valeur = 60  
-    lum_valeur = 500  
+    co2_valeur = co2_transmis
+    temp_valeur = temp_transmis
+    hum_valeur = hum_transmis
+    lum_valeur = lum_transmis
     return co2_valeur, temp_valeur, hum_valeur, lum_valeur
 
 # mise à jour les valeurs des capts
