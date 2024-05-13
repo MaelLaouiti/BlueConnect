@@ -69,5 +69,5 @@ while True:
     if sleep_time > 0:
         time.sleep(sleep_time)
 
-    client.loop_stop()
-    client.disconnect()
+client.loop_stop()
+client.disconnect()
