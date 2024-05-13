@@ -24,12 +24,39 @@ client.loop_start()
 sensor = Adafruit_DHT.DHT22
 pin = 4 # pin 7 du Raspberry PI donc GPIO4
 # Faire une requête GET pour récupérer le contenu de la page
+temperatureSite = 15
+humiditySite = 80
 temperatureCible = 20
 # Vérifier si la requête s'est bien passée
 while True:
         
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
     print('Température = {0:0.1f}C  Humidité = {1:0.1f}%'.format(temperature, humidity))
+    if humidity is not None and temperature is not None:
+         if temperature < temperatureCible :
+            print('Allumer le chauffage et/ou fermer les fenêtres')
+            sensor_data['information'] = 'Allumer le chauffage et/ou fermer les fenêtres'
+         if temperature > temperatureCible :
+             if temperatureSite > temperature :
+                 print('Eteindre le chauffage et/ou fermer les fenêtres')
+                 sensor_data['information'] = 'Eteindre le chauffage et/ou fermer les fenêtres'
+             if temperatureSite < temperature :
+                 print('Eteindre le chauffage et/ou ouvrir les fenêtres')
+                 sensor_data['information'] = 'Eteindre le chauffage et/ou ouvrir les fenêtres'
+         if (humidity > 60 and temperature > temperatureCible and temperature < temperatureCible):
+             if humiditySite > humidity :
+                 print('Fermer les fenêtres')
+                 sensor_data['information'] = 'Fermer les fenêtres'
+             if humiditySite < humidity :
+                 print('Ouvrir les fenêtres')
+                 sensor_data['information'] = 'Ouvrir les fenêtres'
+         if (humidity < 40 and temperature > temperatureCible and temperature < temperatureCible):
+             if humiditySite > humidity :
+                print('Ouvrir les fenêtres')
+                sensor_data['information'] = 'Ouvrir les fenêtres'
+             if humiditySite < humidity :
+                print('Fermer les fenêtres')
+                sensor_data['information'] = 'Fermer les fenêtres'
     sensor_data['temperature'] = temperature
     sensor_data['humidite'] = humidity  
     #Envois des donnees capteurs au Deck
