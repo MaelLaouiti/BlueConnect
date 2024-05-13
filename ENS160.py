@@ -10,7 +10,7 @@ SERVEUR = '169.254.3.30'
 INTERVALE = 5
 next_reading = time.time()
 #Configuration du packet envoye à la carte
-sensor_data = {'eCO2 (ppm)' : 0, 'AQI (1-5)' : 0, 'information' : 0}
+sensor_data = {'TVOC (ppb)' : 0, 'AQI (1-5)' : 0, 'information' : 0}
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, protocol=mqtt.MQTTv311)
 
@@ -23,8 +23,8 @@ SENSOR_ADDR = 0x53
 
 # Define register addresses for sensor data
 AQI_REGISTER = 0x35
-#TVOC_REGISTER = 0x38
-ECO2_REGISTER = 0x37
+#ECO2_REGISTER = 0x38
+TVOC_REGISTER = 0x37
 #0x01, 0x20, 0x36, 0x81 = 256
 #0x35 = 1
 #0x37 = petites valeurs qui varient
@@ -46,18 +46,18 @@ def read_sensor_data(register):
 while True:
     # Read sensor data
     aqi = read_sensor_data(AQI_REGISTER)
-    #tvoc = read_sensor_data(TVOC_REGISTER)
-    eco2 = read_sensor_data(ECO2_REGISTER)
-    sensor_data['eCO2 (ppm)'] = eco2
+    tvoc = read_sensor_data(TVOC_REGISTER)
+    #eco2 = read_sensor_data(ECO2_REGISTER)
+    sensor_data['TVOC (ppb)'] = tvoc
     sensor_data['AQI (1-5)'] = aqi
     
     # Print sensor data
     print("AQI (1-5):", aqi)
-    #print("TVOC (ppb):", tvoc)
-    print("eCO2 (ppm):", eco2)
+    print("TVOC (ppb):", tvoc)
+    #print("eCO2 (ppm):", eco2)
     print()
 
-    if eco2 > 800 :
+    if tvoc > 660 :
         print('Ouvrir les fenêtres')
         sensor_data['information'] = 'Ouvrir les fenêtres'
 
