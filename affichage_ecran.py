@@ -33,7 +33,7 @@ def on_message(client,userdata,message):
         lum_transmis = payload.get('luminosite', 0)
         
     elif topic == 'co2':
-        co2_transmis = payload.get('eCO2 (ppm)', 0)
+        co2_transmis = payload.get('TVOC (ppb)', 0)
         
 
 #Creation d'un client MQTT
