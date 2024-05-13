@@ -64,7 +64,7 @@ while True:
     #Publication des donnees sous forme de fichier json sur le topic 'co2' du broker MQTT
     client.publish('co2',json.dumps(sensor_data),1)
     
-    next_reading =+ INTERVALE
+    next_reading += INTERVALE
     sleep_time = next_reading-time.time()
     if sleep_time > 0:
         time.sleep(sleep_time)
