@@ -1,5 +1,3 @@
-#ATTENTION - Actuellement l'écran s'affiche mais ne reçois rien. Debuggage en cours.
-
 from tkinter import *
 import time
 import paho.mqtt.client as mqtt
