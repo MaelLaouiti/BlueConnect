@@ -4,12 +4,34 @@ import paho.mqtt.client as mqtt
 import json
 from paho.mqtt.client import MQTTv311
 import threading
+import RPi.GPIO as GPIO
 
 #Defintion des variables globales
 temp_transmis = 0
 hum_transmis = 0
 lum_transmis = 0
 co2_transmis = 0
+
+# Definition des pins
+btnDonnees = 17
+btnUp = 27
+btnDown = 22
+btnS1 = 23
+btnS2 = 24
+btnS3 = 25
+btnOnOff = 5
+
+GPIO.setmode(GPIO.BCM)
+
+# Definition des pins en entree / sortie
+GPIO.setup(btnDonnees, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(btnUp, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(btnDown, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(btnS1, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(btnS2, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(btnS3, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+GPIO.setup(btnOnOff, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+
 #configuration du serveur broker MQTT
 SERVEUR = 'localhost'
 
@@ -149,12 +171,12 @@ maj_valeurs()
 check_thresholds()
 
 # Bp pour basculer entre les interfaces
-bouton_allez = Button(fenetre_principal_frame, text="Changer d'interface", command=interface_change)
-bouton_allez.grid(row=4, column=0, pady=10)
+#bouton_allez = Button(fenetre_principal_frame, text="Changer d'interface", command=interface_change)
+#bouton_allez.grid(row=4, column=0, pady=10)
 
-# Bp pour revenir à la fenêtre principale depuis la fenêtre des notif
-bouton_retour = Button(notifications_frame, text="Retour", command=interface_change)
-bouton_retour.grid(row=2, column=0, columnspan=2, pady=10)
+if (GPIO.input(btnDonees) == 1) :
+        interface_change()
+time.sleep(0.3)
 
 # Démarrer la boucle principale de l'interface
 fenetre.mainloop()
