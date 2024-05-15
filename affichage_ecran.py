@@ -11,8 +11,9 @@ temp_transmis = 0
 hum_transmis = 0
 lum_transmis = 0
 co2_transmis = 0
+temp_cible = 20
 
-# Definition des pins
+# Definition des pins boutons
 btnDonnees = 17
 btnUp = 27
 btnDown = 22
@@ -104,7 +105,7 @@ def check_thresholds():
     if lum > 700 and not lum_notification_displayed.get():
         ajout_notif("Fermer les vollets - Luminosité élevée")
         lum_notification_displayed.set(True)
-    if temp > 25 and co2 > 50 and not temp_co2_notification_displayed.get():
+    if temp > temp_cible and co2 > 50 and not temp_co2_notification_displayed.get():
         ajout_notif("Fermer la fenêtre - Température élevée et taux de CO2 élevé")
         temp_co2_notification_displayed.set(True)
     fenetre.after(1000, check_thresholds)  # Vérification toutes les 1 seconde
@@ -176,6 +177,14 @@ check_thresholds()
 
 if (GPIO.input(btnDonees) == 1) :
         interface_change()
+time.sleep(0.3)
+elif (GPIO.input(btnUp) == 1) :
+        temp_cible = temp_cible+1
+        print(temp_cible)
+time.sleep(0.3)
+elif (GPIO.input(btnDown) == 1) :
+        temp_cible = temp_cible-1
+        print(temp_cible)
 time.sleep(0.3)
 
 # Démarrer la boucle principale de l'interface
