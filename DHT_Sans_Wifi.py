@@ -40,9 +40,6 @@ while True:
              if temperatureSite > temperature :
                  print('Eteindre le chauffage et/ou fermer les fenêtres')
                  sensor_data['information'] = 'Eteindre le chauffage et/ou fermer les fenêtres'
-             if temperatureSite < temperature :
-                 print('Eteindre le chauffage et/ou ouvrir les fenêtres')
-                 sensor_data['information'] = 'Eteindre le chauffage et/ou ouvrir les fenêtres'
          if (humidity > 60 and temperature > temperatureCible and temperature < temperatureCible):
              if humiditySite > humidity :
                  print('Fermer les fenêtres')
