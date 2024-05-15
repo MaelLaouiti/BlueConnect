@@ -10,8 +10,8 @@ SERVEUR = '169.254.3.30'
 #Intervale de capture et d'envoi des donnees
 INTERVALE = 5
 next_reading = time.time()
-#Configuration du packet envoye à la carte
-site_data = {'temperature site': 0, 'humidite site' : 0, 'information site' : 0}
+#Configuration du packet envoyé à la carte
+#site_data = {'temperature site': 0, 'humidite site' : 0, 'information site' : 0}
 sensor_data = {'temperature' : 0, 'humidite' : 0, 'information' : 0}
 
 client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, protocol=mqtt.MQTTv311)
