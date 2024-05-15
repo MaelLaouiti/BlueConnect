@@ -188,11 +188,17 @@ if (GPIO.input(btnDonees) == 1) :
         interface_change()
 time.sleep(0.3)
 elif (GPIO.input(btnUp) == 1) :
-        temp_cible = temp_cible+1
+        temp_cible = temp_cible+1   
+        Label(fenetre_principal_frame, text="Temp. cible:", width=10, height=10).grid(row=8, column=4)
+        Label(fenetre_principal_frame, textvariable=temp_cible, width=10, height=10).grid(row=8, column=5)
+        Label(fenetre_principal_frame, text="°C", width=10, height=10).grid(row=8, column=6)
         print(temp_cible)
 time.sleep(0.3)
 elif (GPIO.input(btnDown) == 1) :
         temp_cible = temp_cible-1
+        Label(fenetre_principal_frame, text="Temp. cible:", width=10, height=10).grid(row=8, column=4)
+        Label(fenetre_principal_frame, textvariable=temp_cible, width=10, height=10).grid(row=8, column=5)
+        Label(fenetre_principal_frame, text="°C", width=10, height=10).grid(row=8, column=6)
         print(temp_cible)
 time.sleep(0.3)
 
