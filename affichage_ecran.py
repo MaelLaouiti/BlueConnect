@@ -157,6 +157,11 @@ Label(fenetre_principal_frame, textvariable=temp_var, width=10, height=2).grid(r
 Label(fenetre_principal_frame, textvariable=hum_var, width=10, height=2).grid(row=2, column=1)
 Label(fenetre_principal_frame, textvariable=lum_var, width=10, height=2).grid(row=3, column=1)
 
+Label(fenetre_principal_frame, text="ppm", width=10, height=2).grid(row=0, column=2)
+Label(fenetre_principal_frame, text="°C", width=10, height=2).grid(row=1, column=2)
+Label(fenetre_principal_frame, text="%", width=10, height=2).grid(row=2, column=2)
+Label(fenetre_principal_frame, text="lux", width=10, height=2).grid(row=3, column=2)
+
 # Bouton pour suppr une notif
 delete_button = Button(notifications_frame, text="Supprimer Notification Sélectionnée", command=suppr_notif)
 
