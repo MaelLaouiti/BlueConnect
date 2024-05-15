@@ -94,9 +94,13 @@ def get_sensor_data():
 def maj_valeurs():
     co2, temp, hum, lum = get_sensor_data()
     co2_var.set(co2)
+    round(co2_var,1)
     temp_var.set(temp)
+    round(temp_var,1)
     hum_var.set(hum)
+    round(hum_var,1)
     lum_var.set(lum)
+    round(lum_var,1)
     fenetre.after(1000, maj_valeurs)  # Mise à jour toutes les 1 seconde
 
 # tester les seuils des capteurs et affichage
