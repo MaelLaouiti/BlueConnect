@@ -11,7 +11,6 @@ temp_transmis = 0
 hum_transmis = 0
 lum_transmis = 0
 co2_transmis = 0
-temp_cible = 20
 
 # Definition des pins boutons
 btnDonnees = 17
@@ -126,6 +125,23 @@ def suppr_notif():
     if selected_index:
         notifications_liste.delete(selected_index[0])
 
+
+def handle_buttons():
+    global temp_cible
+    if GPIO.input(btnDonnees) == GPIO.HIGH:
+        interface_change()
+        time.sleep(0.3)  # Debounce delay
+    elif GPIO.input(btnUp) == GPIO.HIGH:
+        temp_cible += 1
+        temp_cible_var.set(temp_cible)
+        time.sleep(0.3)  # Debounce delay
+    elif GPIO.input(btnDown) == GPIO.HIGH:
+        temp_cible -= 1
+        temp_cible_var.set(temp_cible)
+        time.sleep(0.3)  # Debounce delay
+    # Schedule the next button check
+    fenetre.after(100, handle_buttons)
+    
 # Création de la fenêtre principale
 fenetre = Tk()
 fenetre['bg'] = 'white'
@@ -184,23 +200,7 @@ check_thresholds()
 #bouton_allez = Button(fenetre_principal_frame, text="Changer d'interface", command=interface_change)
 #bouton_allez.grid(row=4, column=0, pady=10)
 
-if (GPIO.input(btnDonnees) == 1) :
-    interface_change()
-    time.sleep(0.3)
-elif (GPIO.input(btnUp) == 1) :
-    temp_cible = temp_cible+1   
-    Label(fenetre_principal_frame, text="Temp. cible:", width=10, height=10).grid(row=8, column=4)
-    Label(fenetre_principal_frame, textvariable=temp_cible, width=10, height=10).grid(row=8, column=5)
-    Label(fenetre_principal_frame, text="°C", width=10, height=10).grid(row=8, column=6)
-    print(temp_cible)
-    time.sleep(0.3)
-elif (GPIO.input(btnDown) == 1) :
-    temp_cible = temp_cible-1
-    Label(fenetre_principal_frame, text="Temp. cible:", width=10, height=10).grid(row=8, column=4)
-    Label(fenetre_principal_frame, textvariable=temp_cible, width=10, height=10).grid(row=8, column=5)
-    Label(fenetre_principal_frame, text="°C", width=10, height=10).grid(row=8, column=6)
-    print(temp_cible)
-    time.sleep(0.3)
+handle_buttons()
 
 # Démarrer la boucle principale de l'interface
 fenetre.mainloop()
