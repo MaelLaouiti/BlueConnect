@@ -134,11 +134,9 @@ def handle_buttons():
         time.sleep(0.3)  # Debounce delay
     elif GPIO.input(btnUp) == GPIO.HIGH:
         temp_cible += 1
-        temp_cible_var.set(temp_cible)
         time.sleep(0.3)  # Debounce delay
     elif GPIO.input(btnDown) == GPIO.HIGH:
         temp_cible -= 1
-        temp_cible_var.set(temp_cible)
         time.sleep(0.3)  # Debounce delay
     # Schedule the next button check
     fenetre.after(100, handle_buttons)
