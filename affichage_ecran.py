@@ -11,6 +11,7 @@ temp_transmis = 0
 hum_transmis = 0
 lum_transmis = 0
 co2_transmis = 0
+temp_cible = 20
 
 # Definition des pins boutons
 btnDonnees = 17
