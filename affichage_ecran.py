@@ -138,6 +138,7 @@ def handle_buttons():
     elif GPIO.input(btnDown) == GPIO.HIGH:
         temp_cible -= 1
         time.sleep(0.3)  # Debounce delay
+    fenetre.after(1000, handle_buttons)  # Vérification toutes les 1 seconde
     
 # Création de la fenêtre principale
 fenetre = Tk()
